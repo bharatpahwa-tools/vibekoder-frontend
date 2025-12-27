@@ -1,1 +1,142 @@
 /* Cleaned App.css to prevent global alignment issues */
+body {
+  font-family: "Bricolage Grotesque", sans-serif;
+  /* font-family: 'PT Sans', sans-serif; */
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.instrument {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.instrument-italic {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+
+/* Scoped scrollbar hiding */
+.no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.bricolage {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pt-sans-regular {
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pt-sans-bold {
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.pt-sans-regular-italic {
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.pt-sans-bold-italic {
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.name {
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.liners {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.btn:hover .arrow {
+  transform: translateX(5px);
+}
+
+.debug-info-toggle {
+  display: none !important;
+}
+
+/* Adjust the border radius of the chatbot bubble */
+.magicform-chat-content {
+  border-radius: 20px; /* Adjust as needed */
+}
+.get-in-touch-section {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.details-section p {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .details-section {
+    order: 2;
+  }
+  .chatbot-section {
+    order: 1;
+    margin-bottom: 0rem;
+  }
+}
+
+/* styles.css */
+.fixed.inset-0 {
+  backdrop-filter: blur(10px); /* Adjust blur strength as needed */
+}
+
+@media (max-width: 767px) {
+  .desktop-only {
+    display: none;
+  }
+}
+@media (max-width: 1200px) {
+  .desktop-only-header {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
+}

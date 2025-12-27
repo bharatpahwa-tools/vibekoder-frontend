@@ -22,6 +22,10 @@ import {
   Terminal,
   Maximize2,
   MessageSquare,
+  Grid,
+  Sparkles,
+  BookOpen,
+  Wrench,
   Chrome,
 } from "lucide-react";
 import { EncryptedText } from "../components/ui/encrypted-text";
@@ -67,20 +71,34 @@ const LandingPage = () => {
                 Models
               </a>
               <a
-                href="#privacy"
+                href="/blogs"
                 className="hover:text-zinc-900 transition-colors"
               >
-                Privacy
+                Blogs
+              </a>
+              <a
+                href="/tools"
+                className="hover:text-zinc-900 transition-colors"
+              >
+                Tools
               </a>
             </div>
-            <Button
-              onClick={handleInstallClick}
-              className="bg-zinc-900 hidden md:flex text-white hover:bg-zinc-800 rounded-full px-4"
-            >
-              <Chrome className="h-5 w-5 mr-2" />
-              Add to Chrome
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <div className="flex items-center gap-4">
+              <a
+                href="/create"
+                className="hidden md:flex items-center gap-2 text-sm font-medium text-zinc-900 hover:text-zinc-700 transition-colors"
+              >
+                Creator Studio
+              </a>
+              <Button
+                onClick={handleInstallClick}
+                className="bg-zinc-900 hidden md:flex text-white hover:bg-zinc-800 rounded-full px-4"
+              >
+                <Chrome className="h-5 w-5 mr-2" />
+                Add to Chrome
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
@@ -425,6 +443,71 @@ const LandingPage = () => {
           </Button>
         </div>
       </section>
+      {/* Ecosystem Section */}
+      <section className="py-24 bg-zinc-50 border-b border-zinc-200">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <div className="mb-16 max-w-3xl mx-auto">
+            <h2 className="text-3xl bitcount-prop-single md:text-5xl font-bold text-zinc-900 mb-6">
+              Discover the Ecosystem
+            </h2>
+            <p className="text-lg text-zinc-500">
+              Explore tools and resources built by the community.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Blogs Card */}
+            <a
+              href="/blogs"
+              className="group relative overflow-hidden rounded-3xl bg-white p-8 border border-zinc-200 hover:border-zinc-300 transition-all hover:shadow-xl text-left"
+            >
+              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                <BookOpen className="w-32 h-32" />
+              </div>
+              <div className="relative z-10">
+                <div className="h-12 w-12 rounded-xl bg-blue-50 flex items-center justify-center mb-6 text-blue-600">
+                  <BookOpen size={24} />
+                </div>
+                <h3 className="text-2xl font-bold text-zinc-900 mb-2">
+                  Tech Blogs
+                </h3>
+                <p className="text-zinc-500 mb-6">
+                  Deep dives into frontend architecture, AI integration, and
+                  modern web development.
+                </p>
+                <span className="inline-flex items-center text-blue-600 font-semibold group-hover:translate-x-1 transition-transform">
+                  Read Articles <ArrowRight className="ml-2 w-4 h-4" />
+                </span>
+              </div>
+            </a>
+
+            {/* Tools Card */}
+            <a
+              href="/tools"
+              className="group relative overflow-hidden rounded-3xl bg-white p-8 border border-zinc-200 hover:border-zinc-300 transition-all hover:shadow-xl text-left"
+            >
+              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                <Wrench className="w-32 h-32" />
+              </div>
+              <div className="relative z-10">
+                <div className="h-12 w-12 rounded-xl bg-orange-50 flex items-center justify-center mb-6 text-orange-600">
+                  <Wrench size={24} />
+                </div>
+                <h3 className="text-2xl font-bold text-zinc-900 mb-2">
+                  Developer Tools
+                </h3>
+                <p className="text-zinc-500 mb-6">
+                  A collection of utilities like UUID generators, JSON
+                  formatters, and more.
+                </p>
+                <span className="inline-flex items-center text-orange-600 font-semibold group-hover:translate-x-1 transition-transform">
+                  Explore Tools <ArrowRight className="ml-2 w-4 h-4" />
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="bg-white border-t border-zinc-200 py-12">
@@ -449,13 +532,18 @@ const LandingPage = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-zinc-900">
-                    Integrations
+                  <a href="/create" className="hover:text-zinc-900">
+                    Creator Studio
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-zinc-900">
-                    Changelog
+                  <a href="/blogs" className="hover:text-zinc-900">
+                    Blogs
+                  </a>
+                </li>
+                <li>
+                  <a href="/tools" className="hover:text-zinc-900">
+                    Tools
                   </a>
                 </li>
               </ul>
