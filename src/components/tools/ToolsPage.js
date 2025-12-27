@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Search, ArrowRight, Wrench, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { toolsRegistry } from "../tools/registry";
-import Navbar from "../blogs/Navbar";
 
 export default function ToolsPage() {
   const [query, setQuery] = useState("");
