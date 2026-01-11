@@ -12,26 +12,6 @@
     "componentName": "N8nSetupArticle"
   },
   {
-    "id": 808,
-    "author": "Bharat Pahwa",
-    "title": "Ngrok Tutorial: Complete Guide for Hackers & Developers 2025",
-    "excerpt": "Ngrok provides tunneling, as mentioned above, which enables users to access local-hosted servers from outside the machine.",
-    "date": "2025-11-30",
-    "readTime": "5",
-    "tags": ["ngrok", "tunneling", "localhost"],
-    "socials": {
-      "github": "https://github.com/bharat0709",
-      "twitter": "https://x.com/bharatpahwa",
-      "linkedin": "https://linkedin.com/in/bharat-pahwa",
-      "website": "https://bharatpahwa.dev",
-      "instagram": "https://instagram.com/pahwa_bharat_15",
-      "youtube": ""
-    },
-    "image": "https://avatars.githubusercontent.com/u/10625446?s=280&v=4",
-    "slug": "ngrok-tutorial-complete-guide-for-hackers-developers-2025",
-    "componentName": "NgrokTutorialCompleteGuideforHackersDevelopers"
-  },
-  {
     "id": 310,
     "author": "Bharat Pahwa",
     "title": "Browserstack Interview Prep | SDE 1",

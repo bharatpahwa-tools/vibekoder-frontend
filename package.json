@@ -68,15 +68,17 @@
     "test": "craco test",
     "eject": "react-scripts eject"
   },
-  "reactSnap": {
-    "puppeteer": {
-      "executablePath": "/Applications/Chromium.app/Contents/MacOS/Chromium"
-    },
+"reactSnap": {
     "source": "build",
     "concurrency": 1,
+    "delay": 1000,
+    "skipThirdPartyRequests": true,
     "puppeteerArgs": [
-      "--no-sandbox",
-      "--disable-setuid-sandbox"
+      "--no-sandbox",   
+      "--disable-setuid-sandbox",
+      "--disable-web-security",
+      "--disable-features=IsolateOrigins,site-per-process",
+      "--allow-running-insecure-content"
     ]
   },
   "browserslist": {
