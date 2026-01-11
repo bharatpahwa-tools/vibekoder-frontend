@@ -64,9 +64,22 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "craco build && react-snap",
     "test": "craco test",
     "eject": "react-scripts eject"
+  },
+"reactSnap": {
+    "source": "build",
+    "concurrency": 1,
+    "delay": 1000,
+    "skipThirdPartyRequests": true,
+    "puppeteerArgs": [
+      "--no-sandbox",   
+      "--disable-setuid-sandbox",
+      "--disable-web-security",
+      "--disable-features=IsolateOrigins,site-per-process",
+      "--allow-running-insecure-content"
+    ]
   },
   "browserslist": {
     "production": [
@@ -88,6 +101,7 @@
     "eslint": "8.57.0",
     "eslint-plugin-react": "7.34.1",
     "postcss": "^8.4.47",
+    "react-snap": "^1.23.0",
     "tailwindcss": "^3.4.13"
   }
 }

@@ -29,8 +29,20 @@ import {
   Chrome,
 } from "lucide-react";
 import { EncryptedText } from "../components/ui/encrypted-text";
+import { Input } from "../components/ui/input";
+import OnboardingModal from "../components/onboarding/OnboardingModal";
+import { useState } from "react";
 
 const LandingPage = () => {
+  const [username, setUsername] = useState("");
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
+
+  const handleGetStarted = () => {
+    if (username.trim()) {
+      setIsOnboardingOpen(true);
+    }
+  };
+
   const handleInstallClick = () => {
     window.open(
       "https://chromewebstore.google.com/detail/vibekoder/dnpkibpknbaemeipdjbofjghkfhambcm",
@@ -116,28 +128,59 @@ const LandingPage = () => {
             </Badge>
 
             <h1 className="text-4xl  bitcount-prop-single  md:text-7xl font-extrabold tracking-tight text-zinc-900 mb-6 max-w-4xl mx-auto leading-[1.1]">
-              <EncryptedText text="Orchestrate Your" />
-              <br />
-              <EncryptedText text="AI Workforce" />
+              <EncryptedText text="VibeCode. " />
+              <EncryptedText text="Build. " />
+              <EncryptedText text="Publish. " />
             </h1>
 
             <p className=" text-md lg:text-xl text-zinc-500 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Launch ChatGPT, Claude, Gemini, Grok, Perplexity, Lovable,
-              Emergent, Rocket, side-by-side with one click. The ultimate
-              command center for power users who refuse to settle for one model.
+              The ultimate <strong>ecosystem for VibeCoding</strong>.
+              Orchestrate AI models, build powerful tools, and share your
+              builder's journey with the world.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-              <Button
-                onClick={handleInstallClick}
-                size="lg"
-                className="h-12 px-8 text-base rounded-full bg-zinc-900 hover:bg-zinc-800 shadow-lg shadow-zinc-900/20 w-full sm:w-auto group"
-              >
-                <Chrome size={12} />
-                Install Extension{" "}
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
+            <div className="flex flex-col items-center justify-center gap-6 mb-16 max-w-2xl mx-auto w-full">
+              {/* Username Input Row */}
+              <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full">
+                <div className="flex w-full md:max-w-md items-center bg-white p-1 rounded-full border border-zinc-200 shadow-lg shadow-zinc-200/50 pl-4 focus-within:ring-2 focus-within:ring-zinc-900 focus-within:border-transparent transition-all">
+                  <div className="text-zinc-400 font-medium mr-3">@</div>
+                  <input
+                    type="text"
+                    placeholder="username"
+                    className="flex-1 bg-transparent border-none outline-none text-zinc-900 placeholder:text-zinc-400 h-10 min-w-0"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleGetStarted()}
+                  />
+                </div>
+                <Button
+                  onClick={handleGetStarted}
+                  className="rounded-full w-full md:w-auto bg-zinc-900 hover:bg-zinc-800 text-white px-8 h-12 shadow-md md:shadow-none whitespace-nowrap"
+                  disabled={!username.trim()}
+                >
+                  Get Started <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+
+              {/* Secondary CTA Row */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Button
+                  onClick={handleInstallClick}
+                  variant="outline"
+                  size="sm"
+                  className="rounded-full px-6 h-9 text-zinc-600 border-zinc-200 hover:bg-zinc-50 hover:text-zinc-900"
+                >
+                  <Chrome className="mr-2 h-4 w-4" />
+                  Install Extension
+                </Button>
+              </div>
             </div>
+
+            <OnboardingModal
+              isOpen={isOnboardingOpen}
+              onOpenChange={setIsOnboardingOpen}
+              initialUsername={username}
+            />
 
             {/* <div className="flex items-center justify-center gap-2 text-sm text-zinc-500">
               <div className="flex -space-x-2">
@@ -281,101 +324,89 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Features Grid (Bento) */}
+      {/* Features Grid (Bento) - Refactored for 3 Pillars */}
       <section id="features" className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="mb-16 bitcount-prop-single  text-center max-w-3xl mx-auto">
+          <div className="mb-16 bitcount-prop-single text-center max-w-3xl mx-auto">
             <EncryptedText
               className="text-3xl md:text-5xl text-zinc-900 mb-6"
-              text="Everything you need to dominate."
+              text="Code. Build. Publish."
             />
             <p className="text-lg text-zinc-500">
-              Stop switching tabs. VibeKoder brings the most powerful AI models
-              into a single, unified workflow.
+              VibeKoder isn't just an extension. It's a platform for the next
+              generation of builders.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {/* Feature 1 - Large Span */}
-            <Card className="md:col-span-2 bg-zinc-50 border-zinc-200 overflow-hidden group">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Pillar 1: Extension */}
+            <Card className="bg-zinc-50 border-zinc-200 hover:shadow-lg transition-all duration-300 group">
               <CardHeader>
-                <div className="h-10 w-10 rounded-lg bg-white border border-zinc-200 flex items-center justify-center mb-4 shadow-sm">
-                  <Layout className="h-5 w-5 text-zinc-900" />
+                <div className="h-12 w-12 rounded-xl bg-white border border-zinc-200 flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                  <Layout className="h-6 w-6 text-zinc-900" />
                 </div>
-                <CardTitle>Split View Command</CardTitle>
-                <CardDescription>
-                  Tile windows to compare answers in real-time. See differences
-                  instantly.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-0 mt-4 relative h-64 overflow-hidden">
-                <div className="absolute inset-x-8 top-0 bottom-0 bg-white rounded-t-xl border-x border-t border-zinc-200 group-hover:-translate-y-2 transition-transform duration-500 flex">
-                  <div className="w-1/2 border-r border-zinc-100 p-4">
-                    <div className="h-2 w-1/2 bg-zinc-100 rounded mb-2"></div>
-                    <div className="h-2 w-full bg-zinc-100 rounded mb-2"></div>
-                  </div>
-                  <div className="w-1/2 p-4">
-                    <div className="h-2 w-3/4 bg-zinc-100 rounded mb-2"></div>
-                    <div className="h-2 w-full bg-zinc-100 rounded mb-2"></div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Feature 2 */}
-            <Card className="bg-white border-zinc-200 shadow-lg shadow-zinc-100">
-              <CardHeader>
-                <div className="h-10 w-10 rounded-lg bg-zinc-900 flex items-center justify-center mb-4 shadow-sm">
-                  <Cpu className="h-5 w-5 text-white" />
-                </div>
-                <CardTitle>Auto-Pilot Mode</CardTitle>
-                <CardDescription>
-                  Let Gemini decide which AI model is best for your specific
-                  task automatically.
+                <CardTitle className="text-xl">Vibecode Efficiently</CardTitle>
+                <CardDescription className="text-base text-zinc-500">
+                  Use our Chrome Extension to orchestrate multiple AI models
+                  side-by-side. The command center for high-speed creation.
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center gap-2 p-3 bg-zinc-50 rounded-lg border border-zinc-100 mt-2">
-                  <div className="h-2 w-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-xs text-zinc-600 font-medium">
-                    Analyzing complexity...
-                  </span>
-                </div>
+                <Button
+                  onClick={handleInstallClick}
+                  variant="outline"
+                  className="w-full mt-4 group"
+                >
+                  Get Extension <Chrome className="ml-2 h-4 w-4" />
+                </Button>
               </CardContent>
             </Card>
 
-            {/* Feature 3 */}
-            <Card className="bg-white border-zinc-200">
-              <CardHeader>
-                <div className="h-10 w-10 rounded-lg bg-white border border-zinc-200 flex items-center justify-center mb-4 shadow-sm">
-                  <Terminal className="h-5 w-5 text-zinc-900" />
+            {/* Pillar 2: Blogs/Journey */}
+            <Card className="bg-white border-zinc-200 shadow-xl shadow-zinc-200/40 hover:shadow-2xl hover:shadow-zinc-200/60 transition-all duration-300 group relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <BookOpen className="w-32 h-32" />
+              </div>
+              <CardHeader className="relative z-10">
+                <div className="h-12 w-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-6 shadow-sm text-blue-600 group-hover:scale-110 transition-transform">
+                  <BookOpen className="h-6 w-6" />
                 </div>
-                <CardTitle>Prompt Refiner</CardTitle>
-                <CardDescription>
-                  Turn vague ideas into professional, high-fidelity prompts
-                  instantly.
+                <CardTitle className="text-xl">Publish Your Journey</CardTitle>
+                <CardDescription className="text-base text-zinc-500">
+                  Don't just build in silence. Document your process, share
+                  tutorials, and build your profile as a top-tier VibeCoder.
                 </CardDescription>
               </CardHeader>
+              <CardContent className="relative z-10">
+                <Button
+                  onClick={() => (window.location.href = "/create")}
+                  className="w-full mt-4 bg-zinc-900 text-white hover:bg-zinc-800"
+                >
+                  Start Writing <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
             </Card>
 
-            {/* Feature 4 */}
-            <Card className="md:col-span-2 bg-zinc-900 text-white border-zinc-800">
-              <CardHeader className="relative z-10">
-                <div className="h-10 w-10 rounded-lg bg-zinc-800 flex items-center justify-center mb-4 border border-zinc-700">
-                  <Shield className="h-5 w-5 text-white" />
+            {/* Pillar 3: Tools */}
+            <Card className="bg-zinc-50 border-zinc-200 hover:shadow-lg transition-all duration-300 group">
+              <CardHeader>
+                <div className="h-12 w-12 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center mb-6 shadow-sm text-orange-600 group-hover:scale-110 transition-transform">
+                  <Wrench className="h-6 w-6" />
                 </div>
-                <CardTitle className="text-white">
-                  Privacy First Architecture
-                </CardTitle>
-                <CardDescription className="text-zinc-400">
-                  Your API Keys. Your Data. We run strictly locally in your
-                  browser.
+                <CardTitle className="text-xl">Launch Micro-Tools</CardTitle>
+                <CardDescription className="text-base text-zinc-500">
+                  Turn your scripts and utilities into public tools. One-click
+                  publishing to the VibeKoder ecosystem.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="relative overflow-hidden">
-                <div className="absolute right-0 bottom-0 opacity-10">
-                  <Shield className="h-64 w-64 -mb-10 -mr-10" />
-                </div>
+              <CardContent>
+                <Button
+                  onClick={() => (window.location.href = "/tools")}
+                  variant="outline"
+                  className="w-full mt-4"
+                >
+                  Explore Tools <Wrench className="ml-2 h-4 w-4" />
+                </Button>
               </CardContent>
             </Card>
           </div>

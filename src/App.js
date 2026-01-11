@@ -7,6 +7,7 @@ import CreatorStudio from "./components/editor/CreatorStudio";
 import Blogs from "./components/blogs/Blogs";
 import ArticlePage from "./components/articles/ArticlePage";
 import ToolsPage from "./components/tools/ToolsPage";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/create" element={<CreatorStudio />} />
+          <Route path="/:username" element={<UserProfile />} />
+          <Route path="/:username/blogs/:slug" element={<ArticlePage />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blog/:slug" element={<ArticlePage />} />
           <Route path="/tools" element={<ToolsPage />} />
