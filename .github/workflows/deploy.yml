@@ -1,0 +1,46 @@
+name: Build and Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main  # Or 'master', depending on your default branch
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm ci
+
+      # This step fixes the "missing libraries" error you saw on Vercel
+      - name: Install Linux dependencies for Puppeteer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgbm-dev libnss3 libasound2 libxss1 libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0
+
+      - name: Build with SEO (React Snap)
+        run: npm run build
+        # This will run 'craco build' AND 'react-snap'
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod --prebuilt' 
+          # '--prebuilt' is the magic flag. It tells Vercel:
+          # "I already built the site, just host these files."
