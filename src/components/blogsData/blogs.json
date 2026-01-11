@@ -30,5 +30,25 @@
     "image": "https://avatars.githubusercontent.com/u/10625446?s=280&v=4",
     "slug": "ngrok-tutorial-complete-guide-for-hackers-developers-2025",
     "componentName": "NgrokTutorialCompleteGuideforHackersDevelopers"
+  },
+  {
+    "id": 310,
+    "author": "Bharat Pahwa",
+    "title": "Browserstack Interview Prep | SDE 1",
+    "excerpt": "BrowserStack is the world’s leading software testing platform, powered by AI and trusted by over 50,000 teams, including Amazon, Microsoft, and NVIDIA, to deliver quality software at speed. ",
+    "date": "2025-12-08",
+    "readTime": "10",
+    "tags": ["browserstack", "interview", "sde1"],
+    "socials": {
+      "github": "https://github.com/bharat0709",
+      "twitter": "",
+      "linkedin": "https://linkedin.com/in/bharat-pahwa",
+      "website": "https://bharatpahwa.dev",
+      "instagram": "",
+      "youtube": ""
+    },
+    "image": "https://media.licdn.com/dms/image/v2/D560BAQFHcmTInpwJOQ/company-logo_200_200/B56ZmBXnzGKEAQ-/0/1758812077808/browserstack_logo?e=1768435200&v=beta&t=P2bbv04fusPZV9lb4hWAjRO0Pnb3KueOWIqsfqtu1r0",
+    "slug": "browserstack-interview-prep-sde-1",
+    "componentName": "BrowserstackInterviewPrepSDE"
   }
 ]
