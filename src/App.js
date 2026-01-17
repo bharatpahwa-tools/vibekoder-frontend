@@ -4,9 +4,9 @@ import LandingPage from "./pages/LandingPage";
 import { Toaster } from "./components/ui/sonner";
 import "./App.css";
 import CreatorStudio from "./components/editor/CreatorStudio";
-import Blogs from "./components/blogs/Blogs";
-import ArticlePage from "./components/articles/ArticlePage";
-import ToolsPage from "./components/tools/ToolsPage";
+import Blogs from "./pages/Blogs";
+import ArticlePage from "./pages/ArticlePage";
+import ToolsPage from "./pages/ToolsPage";
 import UserProfile from "./pages/UserProfile";
 
 function App() {

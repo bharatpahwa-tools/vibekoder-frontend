@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Search, ArrowRight, Wrench, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
-import { toolsRegistry } from "../tools/registry";
+import { toolsRegistry } from "../components/tools/registry";
 
 export default function ToolsPage() {
   const [query, setQuery] = useState("");

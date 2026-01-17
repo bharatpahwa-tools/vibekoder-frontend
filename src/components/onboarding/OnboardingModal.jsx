@@ -28,19 +28,26 @@ import {
   CheckCircle2,
   Loader2,
   ArrowRight,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { apiService } from "../../services/api";
+import { toast } from "sonner";
 
 const OnboardingModal = ({ isOpen, onOpenChange, initialUsername = "" }) => {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     username: initialUsername,
+    email: "",
+    password: "",
     name: "",
     bio: "",
     location: "",
-    profilePic: "", // In a real app, this would be a file upload. Here we might just take a URL or use a placeholder
+    profilePic: "",
     techStack: [],
     currentFocus: [],
     socials: {
@@ -102,6 +109,15 @@ const OnboardingModal = ({ isOpen, onOpenChange, initialUsername = "" }) => {
   };
 
   const handleNext = () => {
+    // Basic validation for Step 1
+    if (step === 1) {
+      if (!formData.email || !formData.password || !formData.username) {
+        toast.error(
+          "Please fill in all required fields (Username, Email, Password)"
+        );
+        return;
+      }
+    }
     if (step < 4) setStep(step + 1);
   };
 
@@ -111,15 +127,55 @@ const OnboardingModal = ({ isOpen, onOpenChange, initialUsername = "" }) => {
 
   const handleFinish = async () => {
     setLoading(true);
-    // Simulate API call / Verification email sending
-    setTimeout(() => {
+
+    try {
+      // 1. Sign Up with Metadata
+      // We pass the profile data as metadata. A Supabase "Trigger" (which you must set up)
+      // will listen for the new user and copy this metadata into the public.profiles table.
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            username: formData.username,
+            full_name: formData.name,
+            bio: formData.bio,
+            location: formData.location,
+            avatar_url: formData.profilePic,
+            tech_stack: formData.techStack,
+            current_focus: formData.currentFocus,
+            socials: formData.socials,
+          },
+        },
+      });
+
+      if (authError) throw authError;
+
+      const user = authData.user;
+
+      if (user) {
+        // Success
+        toast.success("Account created! Please check your email to verify.");
+
+        // Save minimal user info to local storage for immediate UI optimistic updates if needed
+        localStorage.setItem("vibekoder_user", JSON.stringify(formData));
+
+        // If email confirmation is enabled, the user won't be logged in yet.
+        // We should show a "Check Email" state instead of redirecting immediately if session is null.
+        if (authData.session) {
+          navigate(`/${formData.username}`);
+          onOpenChange(false);
+        } else {
+          // Move to Step 4: Verification Email Sent
+          setStep(4);
+        }
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      toast.error(error.message || "Failed to create account");
+    } finally {
       setLoading(false);
-      // Save to local storage
-      localStorage.setItem("vibekoder_user", JSON.stringify(formData));
-      // Redirect to the dynamic profile page
-      navigate(`/${formData.username}`);
-      onOpenChange(false);
-    }, 2000);
+    }
   };
 
   // Render Step Content
@@ -128,6 +184,7 @@ const OnboardingModal = ({ isOpen, onOpenChange, initialUsername = "" }) => {
       case 1:
         return (
           <div className="space-y-4 py-2">
+            {/* Avatar Section */}
             <div className="flex justify-center mb-4">
               <div className="relative">
                 <Avatar className="h-24 w-24 border-2 border-zinc-100">
@@ -138,13 +195,11 @@ const OnboardingModal = ({ isOpen, onOpenChange, initialUsername = "" }) => {
                       : "U"}
                   </AvatarFallback>
                 </Avatar>
-                {/* Placeholder for upload logic */}
                 <Button
                   size="icon"
                   variant="outline"
                   className="absolute bottom-0 right-0 rounded-full h-8 w-8 bg-white shadow-sm"
                   onClick={() => {
-                    // Simple prompt for URL for MVP
                     const url = prompt("Enter Profile Image URL");
                     if (url)
                       setFormData((prev) => ({ ...prev, profilePic: url }));
@@ -155,28 +210,73 @@ const OnboardingModal = ({ isOpen, onOpenChange, initialUsername = "" }) => {
               </div>
             </div>
 
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="username">
+                  Username <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  placeholder="vibekoder_fan"
+                  className="bg-zinc-50"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="name">Full Name</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="John Doe"
+                />
+              </div>
+            </div>
+
             <div className="grid gap-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="email">
+                Email <span className="text-red-500">*</span>
+              </Label>
               <Input
-                id="username"
-                name="username"
-                value={formData.username}
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
                 onChange={handleChange}
-                placeholder="vibekoder_fan"
-                disabled // Username locked from Hero input
-                className="bg-zinc-50"
+                placeholder="john@example.com"
               />
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="name">Full Name</Label>
-              <Input
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="John Doe"
-              />
+              <Label htmlFor="password">
+                Password <span className="text-red-500">*</span>
+              </Label>
+              <div className="relative">
+                <Input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="••••••••"
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4 text-zinc-400" />
+                  ) : (
+                    <Eye className="h-4 w-4 text-zinc-400" />
+                  )}
+                </Button>
+              </div>
             </div>
 
             <div className="grid gap-2">
@@ -188,7 +288,7 @@ const OnboardingModal = ({ isOpen, onOpenChange, initialUsername = "" }) => {
                 onChange={handleChange}
                 placeholder="Tell us a little about yourself..."
                 className="resize-none"
-                rows={3}
+                rows={2}
               />
             </div>
 
