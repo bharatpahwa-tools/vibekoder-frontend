@@ -1,0 +1,41 @@
+name: Build and Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-22.04 # Keeps us on the stable Linux version that react-snap likes
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm ci
+
+      # Install the libraries for the headless browser
+      - name: Install Linux dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgbm-dev libnss3 libasound2 libxss1 libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0
+
+      - name: Build with SEO (React Snap)
+        run: npm run build
+        # This creates the ./build folder with all your SEO tags
+
+      - name: Deploy Static Folder to Vercel
+        # This command uploads ONLY the 'build' folder directly to Vercel
+        run: npx vercel deploy build --prod --token ${{ secrets.VERCEL_TOKEN }} --yes
