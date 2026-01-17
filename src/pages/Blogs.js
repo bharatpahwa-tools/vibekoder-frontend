@@ -1,8 +1,8 @@
 import { Helmet } from "react-helmet-async";
-import AboutMeSidebar from "./AboutMeSidebar";
-import BlogsContainer from "./BlogsContainer";
-import Navbar from "./Navbar";
-import SuggestionsSidebar from "./SuggestionsSidebar";
+import AboutMeSidebar from "../components/blogs/AboutMeSidebar";
+import BlogsContainer from "../components/blogs/BlogsContainer";
+import Navbar from "../components/blogs/Navbar";
+import SuggestionsSidebar from "../components/blogs/SuggestionsSidebar";
 
 export default function Blogs() {
   return (

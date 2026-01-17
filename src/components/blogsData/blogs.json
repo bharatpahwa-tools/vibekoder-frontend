@@ -30,5 +30,33 @@
     "image": "https://media.licdn.com/dms/image/v2/D560BAQFHcmTInpwJOQ/company-logo_200_200/B56ZmBXnzGKEAQ-/0/1758812077808/browserstack_logo?e=1768435200&v=beta&t=P2bbv04fusPZV9lb4hWAjRO0Pnb3KueOWIqsfqtu1r0",
     "slug": "browserstack-interview-prep-sde-1",
     "componentName": "BrowserstackInterviewPrepSDE"
+  },
+  {
+    "id": 487,
+    "author": "Bharat Pahwa",
+    "title": "Building a project in Angular ",
+    "excerpt": "A comprehensive guide about how we can build start a angular project. This is like a starter kit to start any project in angular. ",
+    "date": "2026-01-16",
+    "readTime": "5",
+    "tags": [
+      "Angular",
+      "Tailwind",
+      "CSS",
+      "HTML",
+      "React",
+      "Project",
+      "AngularCLI"
+    ],
+    "socials": {
+      "github": "https://github.com/bharat0709",
+      "twitter": "",
+      "linkedin": "https://linkedin.com/in/bharat-pahwa",
+      "website": "https://bharatpahwa.dev",
+      "instagram": "",
+      "youtube": ""
+    },
+    "image": "https://www.esenceweb.com/backend/uploads/angular-framework-tutorial-for-absolute-beginners.png",
+    "slug": "building-a-project-in-angular",
+    "componentName": "BuildingaprojectinAngular"
   }
 ]
